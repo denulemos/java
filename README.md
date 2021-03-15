@@ -6,7 +6,6 @@
 * Al principio Java fue llamado Oak, y fue creado por la empresa Sun, antes de la explosion de internet. Busco una interfaz más cómoda, un lenguaje más fácil de usar y diversidad para escribir un código que funcione para varios dispositivos.
 * Java es un lenguaje diseñado en los 90 por Sun Microsystems y ahora el dueño es Oracle. Es independiente de la plataforma, es decir, escribis el codigo solo 1 vez para que el mismo corra en varios dispositivos.
 * Cada programa en java debe tener una clase, y todos los programas de java comienzan desde el main method que es publico, static (cualquiera puede acceder sin tener que instanciar la clase), void (no devuelve nada).
-
 * Lo único malo que posee es que es un poco más lento que algunos programas de C por su tipo de lenguaje Byte Code que tiene que ser traducido en cada maquina donde es compilado el lenguaje.
 * Funciona con la JVM (Java Virtual Machine) Gracias a este, cualquier programa java es ejecutable en cualquier sistema operativo, es como una mini maquina virtual que unifica todo.
 * Recomiendo poner el codigo en un proyecto Java para poder ejecutarlo de manera mas facil.
@@ -66,4 +65,206 @@ Tipos de Scans que puedo hacer:
 * `nextBoolean()`
 * `nextLine()`
 * `next()` (Una sola palabra)
+
+## Organización general desde el Workspace hasta la Clase
+
+Dentro del workspace, encontraremos una estructura arbolada donde el primer nivel estará formado por los proyectos. Dentro de cada proyecto (aunque esto es a elección del programador, pues puede no hacerse así cambiando un seteo de Eclipse) contendrá dos ramas gemelas, donde una contendrá los archivos fuente (los .java) mientras que la otra contendrá los binarios o bytecode, generados por Java al compilar (los .class).
+
+* Workspace
+  * Proyecto
+    * bin
+      * Paquete
+        * Archivo bytecode (.class)
+    * src
+    * Paquete
+    * Archivo Fuente (.java)
+
+## Packages
+
+Definimos como package (paquete) a una “carpeta lógica” donde quedarán los archivos fuente que generemos. Decimos que son carpetas lógicas para diferenciarlos de las carpetas físicas, que es como se organizan casi todos los sistemas operativos (recordemos que Java, y también Eclipse, existen para muchos sistemas operativos distintos).
+
+Un package determina, además, el namespace al que debemos referirnos para acceder a un recurso específico (uno o más archivos fuentes).
+
+Para definir un paquete, se usa la palabra clave package seguida por un nombre de paquete legal. La declaración termina con un punto y coma.
+
+A menudo, los nombres de los paquetes se separan con puntos, y siguen esta estructura de nombres de facto:
+
+`package tipoorganizacion.nombreorganizacion.nombreaplicacion.nombrepaquete;`
+
+Ejemplo:
+
+`package ort.tprog1.tp1;`
+
+Recordemos, también, que por cada parte del nombre del package (cada parte es separada de la otra por un punto) se creará una carpeta, anidándolas una dentro de la otra, desde la primera hasta la última. Por ejemplo, las carpetas del ejemplo anterior serán:
+
+* ort
+  * tprog1
+    * tp1
+
+## Clases
+
+Siendo Java un lenguaje pensado bajo el paradigma de la Programación Orientada a Objetos (POO), todo programa escrito con él estará formado por al menos una clase.
+
+#### Nombre del Archivo
+
+El nombre de los archivos fuente Java siempre empieza con mayúsculas, al igual que la primera letra de cada palabra que compone su nombre (sin espacios). La extensión es.java.
+
+Ejemplo:
+
+MiClase.java
+
+En este caso contendrá una clase llamada MiClase.
+
+#### Estructura declarativa de una clase
+
+```
+[visibilidad] [atributo] class ClassName {
+// contenido
+}
+```
+
+### Visibilidad
+
+También conocido como Especificador de Acceso, este modificador indica desde dónde es posible ver y/o acceder a la clase. Puede ser public o no declararse; si la clase no pertenece a un paquete (si está “suelta” dentro del proyecto), ambas definiciones son equivalentes; pero si la clase pertenece a un paquete la cosa cambia: si se declara public la clase podrá utilizarse fuera del paquete, pero si no se la declara como pública sólo podrá utilizarse dentro del paquete.
+
+### Atributo
+
+Solo hay dos atributos para clases: abstract y final. La primera (abstract) indica que la clase no está completa (porque tiene al menos un método abstracto, propio o heredado); el atributo final indica que esta clase no podrá tener clases derivadas (ninguna clase podrá heredar de ella). Durante este cuatrimestre trabajaremos sobre todos estos conceptos.
+
+### ClassName
+
+Corresponde al nombre de la clase. Debe coincidir con el nombre del archivo .java y la notación debe ser capitalizada (es decir que cada inicial está en mayúscula, y el resto en minúsculas).
+
+## Campos de Clase (Atributos)
+
+La definición de los campos de una clase tiene el siguiente formato:
+
+visibilidad [atributo] tipodeDato nombreAtributo [= valorInicial];
+
+#### Visibilidad o especificador de acceso
+
+Los valores que puede tomar son:
+
+| public | Puede ser visto desde cualquier lado, como clase o como instancia. No es recomendable, salvo en el caso de las constantes. |
+| - | - |
+| protected | Limitada a la misma clase y a las clases que la heredan. No es visible desde el objeto instanciado. |
+| private | Solo puede ser visto desde dentro de la clase. |
+| [paquete] | Si el modificador de visibilidad no se indica, sucede lo mismo que con las clases en sí: siendo la clase miembro de un paquete, el atributo es visible desde dentro del paquete. Tampoco es muy recomendable. |
+
+#### Atributos
+
+Los atributos modificadores de un campo de clase pueden ser:
+
+| static | Indica que se trata de un atributo o campo de clase, y no de instancia. Cuando es atributo de clase, todas las instancias de la clase comparten el mismo valor. |
+| - | - |
+| final | Una vez asignado su valor no puede ser cambiado. Se comporta como una constante. En este caso, su nombre se escribe completamente en mayúsculas, separando cada palabra de su nombre, si éste es completo, con un guión bajo (“_”). |
+
+Como se indica al final de sentencia, los atributos pueden recibir un valor inicial durante su declaración. Salvo en el caso de los campos estáticos y constantes (static y static final) se recomienda hacer la inicialización de los valores en el constructor de la clase. Si no se les asigna un valor específico en el constructor, los campos tomarán como valor el valor por defecto de su tipo de dato. Por ejemplo, los objetos valdrán null.
+
+Ejemplos:
+
+`private int codigoProducto;`
+
+`public static final float CASI_PI = 314.1592;`
+
+## Metodos
+
+Los métodos de una clase responden a la siguiente declaración y estructura:
+
+```
+visibilidad [abstract][final] tipoRetorno nombreMetodo([listaArgumentos]) {
+// instrucciones;
+
+}
+```
+
+| visibilidad | Siendo también miembros de la clase como los campos, los métodos tienen las mismas características en cuanto a la visibilidad. Puede ser public, protected, private o no declararse, por lo cual será visible desde dentro del package. |
+| - | - |
+| abstract | Se declara como abstract (abstracto) aquel método que solamente se declara, y cuyo código deberá ser implementado en alguna clase derivada. Con tener un solo método abstracto, propio o heredado, la clase también deberá ser abstracta. |
+| final | Significa que este método no podrá ser sobreescrito por ninguna clase derivada. |
+| tipoRetorno | Tipo de dato a devolver por el método. Puede ser void (y el método no tendrá la cláusula return) y de algún tipo, sea este nativo, el nombre de una clase o cualquier otra definición de tipo de dato más compleja (colecciones, etc.) |
+| nombreMetodo | Nombre del método, y se lo usará para invocarlo acompañado de paréntesis y, si es necesario, con los parámetros correspondientes. Debe escribirse en formato camelCase. |
+| listaArgumentos | Enumeración de cada uno de sus argumentos o parámetros. De cada uno se tiene si tipo de dato y su nombre, y se separan entre sí con una coma. |
+
+Luego van todas sus instrucciones encerradas entre llaves, incluyendo la declaración y definición de sus variables locales, si las tuviese. Si el método no es de tipo void, su última instrucción debería ser un return acompañado por el valor final de retorno.
+
+Ejemplos:
+
+```java
+public getCodigo(){
+return codigo;
+}
+public abstract calcularPago(float valor);
+```
+
+## Constructores
+
+Los constructores son los métodos de inicialización de las clases por excelencia. Son tan especiales que no pueden ser invocados salvo con el operador new cuando queremos crear una instancia de la clase, o en forma especial desde dentro de los mismos constructores utilizando las cláusulas this (que veremos enseguida) y super (que aún no utilizaremos).
+
+La estructura de un constructor es:
+
+```
+visibilidad nombreClase([listaArgumentos]) {
+instrucciones;
+
+}
+```
+
+En el caso de los constructores, la visibilidad puede ser public o private (sí, un constructor puede ser privado, más adelante veremos cómo puede usarse).
+
+Una misma clase puede tener ninguno, uno o más constructores, siempre y cuando éstos no tengan la misma firma de declaración.
+
+Es posible que un constructor invoque a otro de la misma clase a través de la cláusula this. Veamos un ejemplo:
+
+```
+public class Producto {
+
+public Producto() {
+
+
+this(0};
+
+
+}
+
+public Producto(int codigo) {
+
+
+this.codigo=codigo;
+
+}
+
+}
+```
+
+En este caso, el primer constructor se aprovecha del segundo para setear el campo códigoen cero.
+
+## Metodo main()
+
+Los métodos main() son los puntos de acceso al programa desde el exterior, cuando los programas son invocados.
+
+Java no genera ejecutables, pero todo programa debe tener un punto de entrada. Cualquier clase puede tener este método, pero solamente uno de ellos será el punto de entrada y será ejecutado en primer lugar.
+
+Este método debe ser public y static. Puede recibir argumentos a través del array de strings args.
+
+Ejemplo completo de un programa que recibe argumentos desde la línea de comandos del sistema:
+
+```java
+package ort.tprog1.demo;
+
+public class Demo{
+
+public static void main(String[] args) {
+System.out.println("Ejecutando… mis argumentos son:");
+
+   for (int i=0; i<args.length; i++) {
+
+       System.out.println(args[i]);
+
+   }
+}
+}
+```
+
+
 

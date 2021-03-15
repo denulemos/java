@@ -34,7 +34,7 @@ public class HolaMundo {
         nombres.size();
 
         // Convetir arraylist a array
-        String[] nombresx Array = nombresx.toArray();
+        String[] nombresxx Array = nombresxx.toArray();
 
         // Recorrer un array
         String[] friends = {
