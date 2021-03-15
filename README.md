@@ -266,5 +266,66 @@ System.out.println("Ejecutando… mis argumentos son:");
 }
 ```
 
+# Excepciones 👀️
+
+Cuando ejecuto mi programa, y sucede un error, por default el programa se corta y no funciona más, no pasa al paso siguiente del error.
+Son objetos que contienen la info necesaria para saber que paso, informando todo el camino que tomo el programa. Son instancias de clases que pertenecen a un arbol jerarquico, es decir, cada excepcion tiene cierta importancia en sí misma.
+
+
+En java todos los errores estan categorizados.
+
+* **Arrojable (Throwable)** : Es una interfaz que posee dos clases, exception y error. java.lang.Error es irrecuperable (StackOverflowError es cuando desbordas la pila de llamadas, OutOfMemoryError, etc..), en exception sí son zafables (RunTimeException(excepcion en tiempo de ejecucion) son las más tipicas, IOException problemas de archivos|rutas, SQLException  , AWTException es cuando trabajamos con interfaces graficas que ya es obsoleto e InterruptedException tiene que ver con procesos)
+* **Checked exception**: Son funciones que sí o sí requieren un try catch en sí mismos, ya que sí falla seria un error grave.
+
+
+Las excepciones tienen tipo, poseen jerarquia y nos permite depurar mejor, ya que sabemos cual fue la causa del error y tomar recaudos del mismo.
+
+La excepcion devuelve una pila de llamadas en donde detecto el inconveniente (todos los que llaman a eso que fallo por orden).
+
+Catch no es un metodo, es un bloque de codigo.
+
+```
+try{ //Cadena de instrucciones a ejecutar al principio
+
+            int x = Consola.LeerEntero(); //El usuario puede                ingresar cualquier cosa
+
+            System.out.println(“El doble es “ + 2*x;
+}
+
+catch(InputMismatchException ime){ //Si sucede esta excepcion, mostrar este mensaje
+
+             System.out.println(“No era un entero”);
+
+}
+```
+
+Puedo poner más de 1 catch sí es el caso. Sí pongo (Exception e) es una excepcion generica, prevee todas las excepciones.
+
+Puedo hacer excepciones personalizadas haciendo una clase Public class ExcepcionPersonalizada extends RuntimeException (sí no es check, de lo contrario solo Exception), puedo agregar varios constructores referentes a excepcion, que reciben un String, etc..
+
+En el caso de un constructor que recibe un String...
+
+```
+public ExcepcionPersonalizada (String msj){
+
+  super(msj);
+
+}
+```
+
+y lo lanzamos en la clase deseada de la siguiente forma
+
+```
+if (Condicion que no es valida){
+
+
+  throw new ExcepcionPersonalizada(“Mensaje que recibe mi Excepcion como String”);
+
+
+}
+```
+
+
+
 
 
